@@ -1,0 +1,39 @@
+# Build output
+build/
+cmake-build-*/
+*.cmake
+!CMakeLists.txt
+
+# Compiled files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VibeComb runtime data (per-device, not git-synced)
+# Note: secrets/ should never be committed - contains encrypted API keys
+secrets/
+
+# Runtime data directories
+.vibecomb/
+
+# Test logs
+*.log
+
+# clangd cache with vscode extension
+.cache/

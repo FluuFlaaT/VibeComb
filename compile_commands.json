@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/nerbai/code/VibeComb/build",
+  "command": "/usr/bin/c++ -DCLI11_COMPILE -isystem /Users/nerbai/vcpkg/installed/arm64-osx/include -std=gnu++17 -arch arm64 -o CMakeFiles/vibecomb.dir/src/main.cpp.o -c /Users/nerbai/code/VibeComb/src/main.cpp",
+  "file": "/Users/nerbai/code/VibeComb/src/main.cpp",
+  "output": "CMakeFiles/vibecomb.dir/src/main.cpp.o"
+}
+]
