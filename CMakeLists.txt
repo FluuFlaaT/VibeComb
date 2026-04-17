@@ -13,11 +13,45 @@ elseif(EXISTS "/Users/nerbai/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 find_package(CLI11 CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
-add_executable(vibecomb src/main.cpp)
+enable_testing()
+find_package(GTest CONFIG REQUIRED)
+
+add_executable(vibecomb
+    src/main.cpp
+    src/providers/store.cpp
+)
+target_include_directories(vibecomb PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
 target_compile_definitions(vibecomb PRIVATE
     VIBECOMB_VERSION="${PROJECT_VERSION}"
 )
-target_link_libraries(vibecomb PRIVATE CLI11::CLI11)
+target_link_libraries(vibecomb PRIVATE CLI11::CLI11 nlohmann_json::nlohmann_json)
 
 install(TARGETS vibecomb DESTINATION bin)
+
+# Create symlink for clangd
+add_custom_command(TARGET vibecomb POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
+        ${CMAKE_CURRENT_BINARY_DIR}/compile_commands.json
+        ${CMAKE_CURRENT_SOURCE_DIR}/compile_commands.json
+    COMMENT "Creating symlink for compile_commands.json"
+)
+
+# Tests
+add_executable(provider_store_test
+    tests/provider_store_test.cpp
+    src/providers/store.cpp
+)
+target_include_directories(provider_store_test PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests
+)
+target_link_libraries(provider_store_test PRIVATE
+    GTest::gtest_main
+    nlohmann_json::nlohmann_json
+)
+
+include(GoogleTest)
+gtest_discover_tests(provider_store_test)

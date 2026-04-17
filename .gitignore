@@ -37,3 +37,8 @@ secrets/
 
 # clangd cache with vscode extension
 .cache/
+
+# clangd compile commands (symlink in project root, actual file in build/)
+compile_commands.json
+
+AGENTS.md
